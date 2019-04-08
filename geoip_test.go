@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func ExampleDaData_GeoIP() {
+func ExampleClient_GeoIP() {
 	daData := NewClient()
 
 	geoIPResponse, err := daData.GeoIP("83.220.54.223")

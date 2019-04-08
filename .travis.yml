@@ -1,0 +1,21 @@
+language: go
+
+go:
+  - "1.10.x"
+  - "1.11.x"
+  - "1.12.x"
+  - tip
+
+#before_script:
+#  # coverage reporter
+#  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#  - chmod +x ./cc-test-reporter
+#  - ./cc-test-reporter before-build
+
+script:
+#  - go test -v -race -coverprofile=coverage.out -covermode=atomic
+  - go test -v -race
+
+#after_script:
+#  - ./cc-test-reporter format-coverage -t gocov coverage.out
+#  - ./cc-test-reporter upload-coverage

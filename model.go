@@ -224,9 +224,9 @@ type OrganizationState struct {
 	//  ACTIVE      — действующая
 	//  LIQUIDATING — ликвидируется
 	//  LIQUIDATED  — ликвидирована
-	ActualityDate    int64  `json:"actuality_date"`    // Дата актуальности сведений
-	RegistrationDate int64  `json:"registration_date"` // Дата регистрации
-	LiquidationDate  string `json:"liquidation_date"`  // Дата ликвидации
+	ActualityDate    int64 `json:"actuality_date"`    // Дата актуальности сведений
+	RegistrationDate int64 `json:"registration_date"` // Дата регистрации
+	LiquidationDate  int64 `json:"liquidation_date"`  // Дата ликвидации
 }
 
 // Party base struct for dadata.Party (rus Организация)

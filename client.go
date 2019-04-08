@@ -141,7 +141,6 @@ func WithBaseSuggestURL(url string) ClientOption {
 }
 
 func applyOptions(options *clientOptions, opts ...ClientOption) {
-	options = &clientOptions{}
 	for _, o := range opts {
 		o(options)
 	}

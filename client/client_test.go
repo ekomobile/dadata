@@ -10,13 +10,13 @@ import (
 
 func ExampleNewClient() {
 	var err error
-	cleanEndpointUrl, err := url.Parse("https://suggestions.dadata.ru/suggestions/api/4_1/rs/")
+	endpointUrl, err := url.Parse("https://suggestions.dadata.ru/suggestions/api/4_1/rs/")
 	if err != nil {
 		return
 	}
 
 	api := suggest.Api{
-		Client: NewClient(cleanEndpointUrl),
+		Client: NewClient(endpointUrl),
 	}
 
 	params := suggest.RequestParams{
@@ -33,9 +33,9 @@ func ExampleNewClient() {
 	}
 }
 
-func ExampleNewClient_Credentials() {
+func ExampleCredentials() {
 	var err error
-	cleanEndpointUrl, err := url.Parse("https://suggestions.dadata.ru/suggestions/api/4_1/rs/")
+	endpointUrl, err := url.Parse("https://suggestions.dadata.ru/suggestions/api/4_1/rs/")
 	if err != nil {
 		return
 	}
@@ -46,7 +46,7 @@ func ExampleNewClient_Credentials() {
 	}
 
 	api := suggest.Api{
-		Client: NewClient(cleanEndpointUrl, WithCredentialProvider(&creds)),
+		Client: NewClient(endpointUrl, WithCredentialProvider(&creds)),
 	}
 
 	params := suggest.RequestParams{

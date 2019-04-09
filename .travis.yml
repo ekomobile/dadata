@@ -14,7 +14,7 @@ go:
 
 script:
 #  - go test -v -race -coverprofile=coverage.out -covermode=atomic
-  - go test -v -race
+  - go test -v -race ./...
 
 #after_script:
 #  - ./cc-test-reporter format-coverage -t gocov coverage.out

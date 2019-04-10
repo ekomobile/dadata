@@ -77,6 +77,11 @@ type (
 		Suggestions []*CountrySuggestion `json:"suggestions"`
 	}
 
+	// FMSUnitResponse result slice for FMS unit suggestions
+	FMSUnitResponse struct {
+		Suggestions []*FMSUnitSuggestion `json:"suggestions"`
+	}
+
 	// GeoIPResponse response for GeoIP
 	GeoIPResponse struct {
 		Location *AddressSuggestion `json:"location"`
@@ -121,5 +126,13 @@ type (
 		Value             string       `json:"value"`
 		UnrestrictedValue string       `json:"unrestricted_value"`
 		Data              *model.Email `json:"data"`
+	}
+
+	// FMSUnitSuggestion is a FMS unit suggestion
+	// https://dadata.ru/api/suggest/fms_unit/
+	FMSUnitSuggestion struct {
+		Value             string         `json:"value"`
+		UnrestrictedValue string         `json:"unrestricted_value"`
+		Data              *model.FMSUnit `json:"data"`
 	}
 )

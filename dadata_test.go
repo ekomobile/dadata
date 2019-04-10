@@ -82,6 +82,16 @@ func (s *ApiSuggestIntegrationTest) TestEmail() {
 	s.NotEmpty(res)
 }
 
+func (s *ApiSuggestIntegrationTest) TestFMSUnit() {
+	api := NewSuggestApi()
+	params := suggest.RequestParams{
+		Query: "увд",
+	}
+	res, err := api.FMSUnit(context.Background(), &params)
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
 func TestSuggestApiIntegration(t *testing.T) {
 	suite.Run(t, &ApiSuggestIntegrationTest{})
 }

@@ -54,6 +54,15 @@ const (
 	SuggestBoundHouse      BoundValue = "house"      // Дом
 )
 
+// FMS unit type
+// https://dadata.ru/api/suggest/fms_unit/
+const (
+	FMSTypeFMS         = 0 // Подразделение ФМС
+	FMSTypeMVD         = 1 // ГУВД или МВД региона
+	FMSTypeOVD         = 2 // УВД или ОВД района или города
+	FMSTypePoliceState = 3 // Отделение полиции
+)
+
 type (
 	// BoundValue type wrapper for suggest bounds
 	// full documentation https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017
@@ -300,5 +309,14 @@ type (
 		Alfa3     string `json:"alfa3"`
 		NameShort string `json:"name_short"`
 		Name      string `json:"name"`
+	}
+
+	// FMSUnit is a FMS unit data model
+	// https://dadata.ru/api/suggest/fms_unit/
+	FMSUnit struct {
+		Code       string `json:"code"`
+		Name       string `json:"name"`
+		RegionCode string `json:"region_code"`
+		Type       string `json:"type"`
 	}
 )

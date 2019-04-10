@@ -86,6 +86,17 @@ func (a *Api) Country(ctx context.Context, params *RequestParams) (ret []*Countr
 	return
 }
 
+// FMSUnit try to return suggest FMS unit by params
+func (a *Api) FMSUnit(ctx context.Context, params *RequestParams) (ret []*FMSUnitSuggestion, err error) {
+	var result = &FMSUnitResponse{}
+	err = a.Client.Post(ctx, "suggest/fms_unit", params, result)
+	if err != nil {
+		return
+	}
+	ret = result.Suggestions
+	return
+}
+
 // AddressByID find addresses by Fias or Kladr
 // see full documentation https://confluence.hflabs.ru/pages/viewpage.action?pageId=312016944
 func (a *Api) AddressByID(ctx context.Context, id string) (addresses []*AddressSuggestion, err error) {

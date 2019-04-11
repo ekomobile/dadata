@@ -72,6 +72,26 @@ func (s *ApiSuggestIntegrationTest) TestName() {
 	s.NotEmpty(res)
 }
 
+func (s *ApiSuggestIntegrationTest) TestNameWithParts() {
+	api := NewSuggestApi()
+	params := suggest.RequestParams{
+		Query: "але",
+	}
+	res, err := api.Name(context.Background(), &params, suggest.WithNameParts(suggest.NamePartSurname))
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestNameWithGender() {
+	api := NewSuggestApi()
+	params := suggest.RequestParams{
+		Query: "але",
+	}
+	res, err := api.Name(context.Background(), &params, suggest.WithNameGender(suggest.NameGenderFemale))
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
 func (s *ApiSuggestIntegrationTest) TestEmail() {
 	api := NewSuggestApi()
 	params := suggest.RequestParams{

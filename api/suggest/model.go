@@ -52,11 +52,6 @@ type (
 		Suggestions []*AddressSuggestion `json:"suggestions"`
 	}
 
-	// NameResponse result slice for name suggestions
-	NameResponse struct {
-		Suggestions []*NameSuggestion `json:"suggestions"`
-	}
-
 	// BankResponse result slice for bank suggestions
 	BankResponse struct {
 		Suggestions []*BankSuggestion `json:"suggestions"`
@@ -99,13 +94,6 @@ type (
 		Value             string         `json:"value"`
 		UnrestrictedValue string         `json:"unrestricted_value"`
 		Data              *model.Address `json:"data"`
-	}
-
-	// NameSuggestion api response for name
-	NameSuggestion struct {
-		Value             string      `json:"value"`
-		UnrestrictedValue string      `json:"unrestricted_value"`
-		Data              *model.Name `json:"data"`
 	}
 
 	// PartySuggestion api response for party

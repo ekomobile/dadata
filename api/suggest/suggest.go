@@ -42,17 +42,6 @@ func (a *Api) Bank(ctx context.Context, params *RequestParams) (ret []*BankSugge
 	return
 }
 
-// Party try to return suggest parties by params
-func (a *Api) Party(ctx context.Context, params *RequestParams) (ret []*PartySuggestion, err error) {
-	var result = &PartyResponse{}
-	err = a.Client.Post(ctx, "suggest/party", params, result)
-	if err != nil {
-		return
-	}
-	ret = result.Suggestions
-	return
-}
-
 // Email try to return suggest emails by params
 func (a *Api) Email(ctx context.Context, params *RequestParams) (ret []*EmailSuggestion, err error) {
 	var result = &EmailResponse{}

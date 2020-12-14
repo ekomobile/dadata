@@ -1,9 +1,8 @@
 language: go
 
 go:
-  - "1.10.x"
-  - "1.11.x"
-  - "1.12.x"
+  - "1.14.x"
+  - "1.15.x"
   - tip
 
 #before_script:
@@ -13,6 +12,7 @@ go:
 #  - ./cc-test-reporter before-build
 
 script:
+  - go vet ./...
 #  - go test -v -race -coverprofile=coverage.out -covermode=atomic
   - go test -v -race ./...
 

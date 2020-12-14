@@ -6,8 +6,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ekomobile/dadata/v2/api/suggest"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/ekomobile/dadata/v2/api/suggest"
 )
 
 type (
@@ -50,6 +51,51 @@ func (s *ApiSuggestIntegrationTest) TestParty() {
 	res, err := api.Party(context.Background(), &params)
 	s.NoError(err)
 	s.NotEmpty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestPartyById() {
+	api := NewSuggestApi()
+
+	query := "7707083893"
+	params := suggest.NewPartyByIDParams(query)
+
+	res, err := api.PartyByID(context.Background(), params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestPartyByIdWithKPP() {
+	api := NewSuggestApi()
+
+	query := "7707083893"
+	testKPP := "773601001"
+
+	params := suggest.NewPartyByIDParams(query).
+		SetKPP(testKPP)
+
+	res, err := api.PartyByID(context.Background(), params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Equal(query, res[0].Data.Inn)
+	s.Equal(testKPP, res[0].Data.Kpp)
+}
+
+func (s *ApiSuggestIntegrationTest) TestPartyByIdWithBranchType() {
+	api := NewSuggestApi()
+
+	query := "7707083893"
+
+	params := suggest.NewPartyByIDParams(query).
+		SetBranchType(suggest.PartyBranchTypeMain).
+		SetType(suggest.PartyTypeLegal)
+
+	res, err := api.PartyByID(context.Background(), params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Equal(query, res[0].Data.Inn)
 }
 
 func (s *ApiSuggestIntegrationTest) TestCountry() {

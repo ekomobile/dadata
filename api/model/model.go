@@ -287,15 +287,20 @@ type (
 			Full         string `json:"full"`
 			Short        string `json:"short"`
 		} `json:"name"`
-		Inn         string           `json:"inn"`
-		Ogrn        string           `json:"ogrn"`
-		Okato       string           `json:"okato"`
-		Oktmo       string           `json:"oktmo"`
-		Okpo        string           `json:"okpo"`
-		Okogu       string           `json:"okogu"`
-		Okfs        string           `json:"okfs"`
-		Okved       string           `json:"okved"`
-		Okveds      string           `json:"okveds"`
+		Inn    string `json:"inn"`
+		Ogrn   string `json:"ogrn"`
+		Okato  string `json:"okato"`
+		Oktmo  string `json:"oktmo"`
+		Okpo   string `json:"okpo"`
+		Okogu  string `json:"okogu"`
+		Okfs   string `json:"okfs"`
+		Okved  string `json:"okved"`
+		Okveds []*struct {
+			Main bool   `json:"main"`
+			Type string `json:"type"`
+			Code string `json:"code"`
+			Name string `json:"name"`
+		} `json:"okveds"`
 		Authorities string           `json:"authorities"`
 		Documents   string           `json:"documents"`
 		Licenses    string           `json:"licenses"`

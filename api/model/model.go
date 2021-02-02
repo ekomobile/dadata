@@ -289,7 +289,11 @@ type (
 		} `json:"name"`
 		Inn         string           `json:"inn"`
 		Ogrn        string           `json:"ogrn"`
+		Okato       string           `json:"okato"`
+		Oktmo       string           `json:"oktmo"`
 		Okpo        string           `json:"okpo"`
+		Okogu       string           `json:"okogu"`
+		Okfs        string           `json:"okfs"`
 		Okved       string           `json:"okved"`
 		Okveds      string           `json:"okveds"`
 		Authorities string           `json:"authorities"`

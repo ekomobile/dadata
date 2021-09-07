@@ -14,7 +14,7 @@ Implemented [Clean](https://dadata.ru/api/clean/) and [Suggest](https://dadata.r
 
 ## Installation
 
-`go get github.com/ekomobile/dadata`
+`go get github.com/ekomobile/dadata/v2`
 
 ## Usage
 ```go

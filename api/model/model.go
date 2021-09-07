@@ -74,8 +74,11 @@ type (
 		Result               string `json:"result"`                  // Стандартизованный адрес одной строкой
 		PostalCode           string `json:"postal_code"`             // Индекс
 		Country              string `json:"country"`                 // Страна
+		CountryIsoCode       string `json:"country_iso_code"`        // ISO-код страны
+		FederalDistrict      string `json:"federal_district"`        // Федеральный округ
 		RegionFiasID         string `json:"region_fias_id"`          // Код ФИАС региона
 		RegionKladrID        string `json:"region_kladr_id"`         // Код КЛАДР региона
+		RegionIsoCode        string `json:"region_iso_code"`         // ISO-код региона
 		RegionWithType       string `json:"region_with_type"`        // Регион с типом
 		RegionType           string `json:"region_type"`             // Тип региона (сокращенный)
 		RegionTypeFull       string `json:"region_type_full"`        // Тип региона
@@ -119,6 +122,9 @@ type (
 		BlockType            string `json:"block_type"`              // Тип корпуса/строения (сокращенный)
 		BlockTypeFull        string `json:"block_type_full"`         // Тип корпуса/строения
 		Block                string `json:"block"`                   // Корпус/строение
+		Entrance             string `json:"entrance"`                // Подъезд
+		Floor                string `json:"floor"`                   // Этаж
+		FlatFiasId           string `json:"flat_fias_id"`            // ФИАС-код квартиры
 		FlatType             string `json:"flat_type"`               // Тип квартиры (сокращенный)
 		FlatTypeFull         string `json:"flat_type_full"`          // Тип квартиры
 		Flat                 string `json:"flat"`                    // Квартира
@@ -127,12 +133,15 @@ type (
 		FlatPrice            string `json:"flat_price"`              // Рыночная стоимость квартиры
 		PostalBox            string `json:"postal_box"`              // Абонентский ящик
 		FiasID               string `json:"fias_id"`                 // Код ФИАС
+		FiasCode             string `json:"fias_code"`               // Иерархический код адреса в ФИАС (СС+РРР+ГГГ+ППП+СССС+УУУУ+ДДДД)
 		FiasLevel            string `json:"fias_level"`              // Уровень детализации, до которого адрес найден в ФИАС
+		FiasActualityState   string `json:"fias_actuality_state"`    // Признак актуальности адреса в ФИАС
 		KladrID              string `json:"kladr_id"`                // Код КЛАДР
 		CapitalMarker        string `json:"capital_marker"`          // Статус центра
 		Okato                string `json:"okato"`                   // Код ОКАТО
 		Oktmo                string `json:"oktmo"`                   // Код ОКТМО
 		TaxOffice            string `json:"tax_office"`              // Код ИФНС для физических лиц
+		TaxOfficeLegal       string `json:"tax_office_legal"`        // Код ИФНС для организаций
 		Timezone             string `json:"timezone"`                // Часовой пояс
 		GeoLat               string `json:"geo_lat"`                 // Координаты: широта
 		GeoLon               string `json:"geo_lon"`                 // Координаты: долгота

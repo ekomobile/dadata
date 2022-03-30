@@ -42,7 +42,7 @@ func ExampleCredentials() {
 
 	creds := Credentials{
 		ApiKeyValue:    "<YOUR_API_KEY>",
-		SecretKeyValue: "<YOUR_API_KEY>",
+		SecretKeyValue: "<YOUR_SECRET_KEY>",
 	}
 
 	api := suggest.Api{

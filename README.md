@@ -44,7 +44,10 @@ func DaDataExample()  {
 }
 ```
 
-## Credentials
+
+## Configuration 
+
+### Credentials
 
 `DADATA_API_KEY` and `DADATA_SECRET_KEY` environment variables are used by default to authenticate client.
 
@@ -60,6 +63,18 @@ creds := client.Credentials{
 
 api := NewSuggestApi(client.WithCredentialProvider(&creds))
 ```
+
+
+### HTTP client
+
+HTTP client may be overridden with custom one:
+
+```go
+httpClient := &http.Client{}
+
+api := NewSuggestApi(WithHttpClient(httpClient))
+```
+
 
 ## Licence
 MIT see [LICENSE](LICENSE)

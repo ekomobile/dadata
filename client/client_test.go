@@ -15,7 +15,7 @@ func ExampleNewClient() {
 		return
 	}
 
-	api := suggest.Api{
+	api := suggest.ApiImp{
 		Client: NewClient(endpointUrl),
 	}
 
@@ -45,7 +45,7 @@ func ExampleCredentials() {
 		SecretKeyValue: "<YOUR_SECRET_KEY>",
 	}
 
-	api := suggest.Api{
+	api := suggest.ApiImp{
 		Client: NewClient(endpointUrl, WithCredentialProvider(&creds)),
 	}
 

@@ -271,16 +271,23 @@ type (
 		LiquidationDate  int64 `json:"liquidation_date"`  // Дата ликвидации
 	}
 
+	// Capital base struct for dadata.Party.Capital (rus Уставной капитал компании)
+	Capital struct {
+		Type  string  `json:"type"`
+		Value float64 `json:"value"`
+	}
+
 	// Party base struct for dadata.Party (rus Организация)
 	Party struct {
-		Kpp        string `json:"kpp"`
-		Capital    string `json:"capital"`
+		Kpp        string  `json:"kpp"`
+		Capital    Capital `json:"capital"`
 		Management *struct {
 			Name string `json:"name"`
 			Post string `json:"post"`
 		} `json:"management"`
-		Founders    string             `json:"founders"`
-		Managers    string             `json:"managers"`
+		Founders string `json:"founders"`
+		//fixme struct not string
+		//Managers    string             `json:"managers"`
 		BranchType  string             `json:"branch_type"`
 		BranchCount int                `json:"branch_count"`
 		Source      string             `json:"source"`
@@ -310,14 +317,19 @@ type (
 			Code string `json:"code"`
 			Name string `json:"name"`
 		} `json:"okveds"`
-		Authorities string           `json:"authorities"`
-		Documents   string           `json:"documents"`
-		Licenses    string           `json:"licenses"`
-		Address     *AddressResponse `json:"address"`
-		Phones      string           `json:"phones"`
-		Emails      string           `json:"emails"`
-		OgrnDate    int64            `json:"ogrn_date"`
-		OkvedType   string           `json:"okved_type"`
+		//fixme struct not string
+		//Authorities string           `json:"authorities"`
+		//fixme struct not string
+		//Documents   string           `json:"documents"`
+		//fixme struct not string
+		//Licenses    string           `json:"licenses"`
+		Address *AddressResponse `json:"address"`
+		//fixme struct not string
+		//Phones      string           `json:"phones"`
+		//fixme struct not string
+		//Emails      string           `json:"emails"`
+		OgrnDate  int64  `json:"ogrn_date"`
+		OkvedType string `json:"okved_type"`
 	}
 
 	// Country base struct for dadata.Country

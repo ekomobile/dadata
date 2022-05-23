@@ -70,7 +70,7 @@ func (p *NameParams) applyOption(opts ...NameOption) {
 }
 
 // Name try to return suggest names by params
-func (a *Api) Name(ctx context.Context, requestParams *RequestParams, opts ...NameOption) (ret []*NameSuggestion, err error) {
+func (a *ApiImp) Name(ctx context.Context, requestParams *RequestParams, opts ...NameOption) (ret []*NameSuggestion, err error) {
 	var result = &NameResponse{}
 
 	params := NameParams{

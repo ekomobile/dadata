@@ -57,7 +57,7 @@ func (o *PartyByIDParams) SetBranchType(t PartyBranchType) *PartyByIDParams {
 }
 
 // Party try to return suggest parties by params
-func (a *Api) Party(ctx context.Context, params *RequestParams) (ret []*PartySuggestion, err error) {
+func (a *ApiImp) Party(ctx context.Context, params *RequestParams) (ret []*PartySuggestion, err error) {
 	var result = &PartyResponse{}
 
 	err = a.Client.Post(ctx, "suggest/party", params, result)
@@ -72,7 +72,7 @@ func (a *Api) Party(ctx context.Context, params *RequestParams) (ret []*PartySug
 
 // Party find parties by ID
 // https://dadata.ru/api/find-party/
-func (a *Api) PartyByID(ctx context.Context, params *PartyByIDParams) (ret []*PartySuggestion, err error) {
+func (a *ApiImp) PartyByID(ctx context.Context, params *PartyByIDParams) (ret []*PartySuggestion, err error) {
 	var result = &PartyResponse{}
 
 	err = a.Client.Post(ctx, "findById/party", params, result)

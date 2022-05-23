@@ -37,29 +37,29 @@ func init() {
 }
 
 // NewCleanApi provides "clean" API.
-func NewCleanApi(opts ...client.Option) *clean.Api {
-	return &clean.Api{
+func NewCleanApi(opts ...client.Option) clean.Api {
+	return &clean.ApiImp{
 		Client: client.NewClient(endpointURL, opts...),
 	}
 }
 
 // NewSuggestApi provides suggestion API.
-func NewSuggestApi(opts ...client.Option) *suggest.Api {
-	return &suggest.Api{
+func NewSuggestApi(opts ...client.Option) suggest.Api {
+	return &suggest.ApiImp{
 		Client: client.NewClient(endpointURLSuggest, opts...),
 	}
 }
 
 // NewProfileApi provides profile related API.
-func NewProfileApi(opts ...client.Option) *profile.Api {
-	return &profile.Api{
+func NewProfileApi(opts ...client.Option) profile.Api {
+	return &profile.ApiImp{
 		Client: client.NewClient(endpointURL, opts...),
 	}
 }
 
 // NewStatApi provides statistic API.
-func NewStatApi(opts ...client.Option) *stat.Api {
-	return &stat.Api{
+func NewStatApi(opts ...client.Option) stat.Api {
+	return &stat.ApiImp{
 		Client: client.NewClient(endpointURL, opts...),
 	}
 }

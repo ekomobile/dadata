@@ -28,6 +28,8 @@ type (
 		StreetKladrID        string `json:"street_kladr_id,omitempty"`
 		StreetTypeFull       string `json:"street_type_full,omitempty"`
 		AreaTypeFull         string `json:"area_type_full,omitempty"`
+		Country              string `json:"country,omitempty"`
+		CountryISOCode       string `json:"country_iso_code,omitempty"`
 	}
 
 	// Bound for granular sugestion

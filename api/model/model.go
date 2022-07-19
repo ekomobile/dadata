@@ -248,6 +248,7 @@ type (
 
 	// OrganizationOPF Тип Кредитной организации
 	OrganizationOPF struct {
+		Code  string `json:"code"`  // код ОКОПФ
 		Type  string `json:"type"`  // Тип кредитной организации
 		Full  string `json:"full"`  // Тип кредитной организации (на русском)
 		Short string `json:"short"` // Тип кредитной организации (на русском, сокращенный)

@@ -280,7 +280,13 @@ type (
 			Name string `json:"name"`
 			Post string `json:"post"`
 		} `json:"management"`
-		Founders    string             `json:"founders"`
+		Founders []*struct {
+			Ogrn string `json:"ogrn"`
+			Inn string `json:"inn"`
+			Name string `json:"name"`
+			Hid string `json:"hid"`
+			Type string `json:"type"`			
+		} `json:"founders"`
 		Managers    string             `json:"managers"`
 		BranchType  string             `json:"branch_type"`
 		BranchCount int                `json:"branch_count"`

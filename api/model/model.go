@@ -80,6 +80,12 @@ const (
 	PartySMBCategoryMedium PartySMBCategory = "MEDIUM"
 )
 
+const (
+	GenderMale    Gender = "MALE"
+	GenderFemale  Gender = "FEMALE"
+	GenderUnknown Gender = "UNKNOWN" // Не удалось однозначно определить
+)
+
 type (
 	// BoundValue type wrapper for suggest bounds
 	// full documentation https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017
@@ -377,6 +383,7 @@ type (
 		Post string           `json:"post"` // Должность руководителя (для физлиц)
 		Hid  string           `json:"hid"`  // Внутренний идентификатор
 		Type PartyManagerType `json:"type"` // Тип руководителя
+		Fio  *FIO             `json:"fio"`  // ФИО руководителя (для физлиц)
 	}
 
 	// PartyFounderType - тип учредителя
@@ -389,6 +396,7 @@ type (
 		Name string           `json:"name"` // Наименование учредителя (для юрлиц)
 		Hid  string           `json:"hid"`  // Внутренний идентификатор
 		Type PartyFounderType `json:"type"` // Тип учредителя (LEGAL / PHYSICAL)
+		Fio  *FIO             `json:"fio"`  // ФИО учредителя (для физлиц)
 	}
 
 	PartyAuthority struct {
@@ -442,5 +450,19 @@ type (
 		Name       string `json:"name"`
 		RegionCode string `json:"region_code"`
 		Type       string `json:"type"`
+	}
+
+	Gender string
+
+	FIO struct {
+		Surname    string `json:"surname"`    // Фамилия
+		Name       string `json:"name"`       // Имя
+		Patronymic string `json:"patronymic"` // Отчество
+		Gender     Gender `json:"gender"`     // Пол
+		// Код качества.
+		// 0 - если все части ФИО найдены в справочниках.
+		// 1 - если в ФИО есть часть не из справочника.
+		QC     string `json:"qc"`
+		Source string `json:"source"`
 	}
 )

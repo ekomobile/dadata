@@ -1,0 +1,121 @@
+{
+    "opf": {
+        "type": "BANK",
+        "full": null,
+        "short": null
+    },
+    "name": {
+        "payment": "ПАО СБЕРБАНК",
+        "full": null,
+        "short": "СБЕРБАНК РОССИИ"
+    },
+    "bic": "111",
+    "swift": "SABRRUMM012",
+    "inn": "7707083893",
+    "kpp": "773601001",
+    "okpo": null,
+    "correspondent_account": "30101810400000000225",
+    "treasury_accounts": null,
+    "registration_number": "1481",
+    "payment_city": "г. Москва",
+    "rkc": {
+        "opf": {
+            "type": "BANK",
+            "full": null,
+            "short": null
+        },
+        "name": {
+            "payment": "ПАО СБЕРБАНК",
+            "full": null,
+            "short": "СБЕРБАНК РОССИИ"
+        },
+        "bic": "222",
+        "swift": "SABRRUMMXXX",
+        "okpo": null,
+        "correspondent_account": "30101810400000000225",
+        "registration_number": "1481",
+        "rkc": {
+            "opf": {
+                "type": "BANK",
+                "full": null,
+                "short": null
+            },
+            "name": {
+                "payment": "ПАО СБЕРБАНК",
+                "full": null,
+                "short": "СБЕРБАНК РОССИИ"
+            },
+            "bic": "333",
+            "swift": "SABRRUMMXXX",
+            "okpo": null,
+            "correspondent_account": "30101810400000000225",
+            "registration_number": "1481",
+            "rkc": {
+                "opf": {
+                    "type": "BANK",
+                    "full": null,
+                    "short": null
+                },
+                "name": {
+                    "payment": "ПАО СБЕРБАНК",
+                    "full": null,
+                    "short": "СБЕРБАНК РОССИИ"
+                },
+                "bic": "444",
+                "swift": "SABRRUMMXXX",
+                "okpo": null,
+                "correspondent_account": "30101810400000000225",
+                "registration_number": "1481",
+                "rkc": null,
+                "address": {
+                    "value": "г Москва, ул Вавилова, д 19",
+                    "unrestricted_value": "г Москва, Академический р-н, ул Вавилова, д 19",
+                    "data": {}
+                },
+                "phones": null,
+                "state": {
+                    "status": "ACTIVE",
+                    "actuality_date": 1548201600000,
+                    "registration_date": 677376000000,
+                    "liquidation_date": null
+                }
+            },
+            "address": {
+                "value": "г Москва, ул Вавилова, д 19",
+                "unrestricted_value": "г Москва, Академический р-н, ул Вавилова, д 19",
+                "data": {}
+            },
+            "phones": null,
+            "state": {
+                "status": "ACTIVE",
+                "actuality_date": 1548201600000,
+                "registration_date": 677376000000,
+                "liquidation_date": null
+            }
+        },
+        "address": {
+            "value": "г Москва, ул Вавилова, д 19",
+            "unrestricted_value": "г Москва, Академический р-н, ул Вавилова, д 19",
+            "data": {}
+        },
+        "phones": null,
+        "state": {
+            "status": "ACTIVE",
+            "actuality_date": 1548201600000,
+            "registration_date": 677376000000,
+            "liquidation_date": null
+        }
+    },
+    "address": {
+        "value": "г Москва, ул Вавилова, д 19",
+        "unrestricted_value": "г Москва, Академический р-н, ул Вавилова, д 19",
+        "data": {}
+    },
+    "phones": null,
+    "state": {
+        "status": "ACTIVE",
+        "actuality_date": 1548201600000,
+        "registration_date": 677376000000,
+        "liquidation_date": null
+    }
+}

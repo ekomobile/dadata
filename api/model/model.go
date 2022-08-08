@@ -63,6 +63,29 @@ const (
 	FMSTypePoliceState = 3 // Отделение полиции
 )
 
+const (
+	PartyFounderTypeLegal    PartyFounderType = "LEGAL"
+	PartyFounderTypePhysical PartyFounderType = "PHYSICAL"
+)
+
+const (
+	PartyManagerTypeEmployee  PartyManagerType = "EMPLOYEE"
+	PartyManagerTypeForeigner PartyManagerType = "FOREIGNER"
+	PartyManagerTypeLegal     PartyManagerType = "LEGAL"
+)
+
+const (
+	PartySMBCategoryMicro  PartySMBCategory = "MICRO"
+	PartySMBCategorySmall  PartySMBCategory = "SMALL"
+	PartySMBCategoryMedium PartySMBCategory = "MEDIUM"
+)
+
+const (
+	GenderMale    Gender = "MALE"
+	GenderFemale  Gender = "FEMALE"
+	GenderUnknown Gender = "UNKNOWN" // Не удалось однозначно определить
+)
+
 type (
 	// BoundValue type wrapper for suggest bounds
 	// full documentation https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017
@@ -232,9 +255,12 @@ type (
 	}
 
 	// Bank base struct for dadata.Bank
+	// https://confluence.hflabs.ru/pages/viewpage.action?pageId=262996078
 	Bank struct {
 		Opf                  *OrganizationOPF   `json:"opf"`
 		Name                 *BankName          `json:"name"`
+		Inn                  string             `json:"inn"`                   // ИНН (начиная с версии 20.3)
+		Kpp                  string             `json:"kpp"`                   // КПП (начиная с версии 20.3)
 		Bic                  string             `json:"bic"`                   // Банковский идентификационный код (БИК) ЦБ РФ
 		Swift                string             `json:"swift"`                 // Банковский идентификационный код в системе SWIFT
 		Okpo                 string             `json:"okpo"`                  // Код ОКПО
@@ -272,16 +298,20 @@ type (
 		LiquidationDate  int64 `json:"liquidation_date"`  // Дата ликвидации
 	}
 
+	PartySMBCategory string
+
 	// Party base struct for dadata.Party (rus Организация)
+	// https://confluence.hflabs.ru/pages/viewpage.action?pageId=204669122
 	Party struct {
-		Kpp        string `json:"kpp"`
-		Capital    string `json:"capital"`
+		Kpp        string        `json:"kpp"`
+		Capital    *PartyCapital `json:"capital"` // Уставной капитал компании
 		Management *struct {
-			Name string `json:"name"`
-			Post string `json:"post"`
-		} `json:"management"`
-		Founders    string             `json:"founders"`
-		Managers    string             `json:"managers"`
+			Name         string `json:"name"`         // ФИО руководителя
+			Post         string `json:"post"`         // Должность руководителя
+			Disqualified *bool  `json:"disqualified"` // true, если в состав руководства входят дисквалифицированные лица (19.7+)
+		} `json:"management"` // Руководитель
+		Founders    []*PartyFounder    `json:"founders"` // Учредители компании
+		Managers    []*PartyManager    `json:"managers"` // Руководители компании
 		BranchType  string             `json:"branch_type"`
 		BranchCount int                `json:"branch_count"`
 		Source      string             `json:"source"`
@@ -311,14 +341,97 @@ type (
 			Code string `json:"code"`
 			Name string `json:"name"`
 		} `json:"okveds"`
-		Authorities string           `json:"authorities"`
-		Documents   string           `json:"documents"`
-		Licenses    string           `json:"licenses"`
-		Address     *AddressResponse `json:"address"`
-		Phones      string           `json:"phones"`
-		Emails      string           `json:"emails"`
-		OgrnDate    int64            `json:"ogrn_date"`
-		OkvedType   string           `json:"okved_type"`
+		Authorities *struct {
+			FtsRegistration *PartyAuthority `json:"fts_registration"` // ИФНС регистрации
+			FtsReport       *PartyAuthority `json:"fts_report"`       // ИФНС отчётности
+			Pf              *PartyAuthority `json:"pf"`               // Отделение Пенсионного фонда
+			Sif             *PartyAuthority `json:"sif"`              // Отделение Фонда соц. страхования
+		} `json:"authorities"` // Сведения о налоговой, ПФР и ФСС
+		Documents *struct {
+			FtsRegistration *PartyDocument `json:"fts_registration"` // Свидетельство о регистрации в налоговой
+			FtsReport       *PartyDocument `json:"fts_report"`       // Сведения об учете в налоговом органе
+			PfRegistration  *PartyDocument `json:"pf_registration"`  // Свидетельство о регистрации в Пенсионном фонде
+			SifRegistration *PartyDocument `json:"sif_registration"` // Свидетельство о регистрации в Фонде соц. страхования
+			Smb             *struct {
+				Type      string           `json:"type"`       // Тип документа
+				Category  PartySMBCategory `json:"category"`   // Категория (MICRO, SMALL, MEDIUM)
+				IssueDate int64            `json:"issue_date"` // Дата включения организации в реестр
+			} `json:"smb"` // Запись в реестре малого и среднего предпринимательства (19.6+)
+		} `json:"documents"` // Документы
+		Licenses  []*PartyLicense  `json:"licenses"` // Лицензии
+		Address   *AddressResponse `json:"address"`
+		Phones    []*PartyPhone    `json:"phones"` // Телефоны
+		Emails    []*PartyEmail    `json:"emails"` // Адреса эл. почты
+		OgrnDate  int64            `json:"ogrn_date"`
+		OkvedType string           `json:"okved_type"`
+	}
+
+	// PartyCapital - уставной капитал компании
+	PartyCapital struct {
+		Type  string  `json:"type"`  // Тип капитала
+		Value float64 `json:"value"` // Размер капитала
+	}
+
+	// PartyManagerType - тип руководителя
+	PartyManagerType string
+
+	// PartyManager - руководитель компании
+	PartyManager struct {
+		Ogrn string           `json:"ogrn"` // ОГРН руководителя (для юрлиц)
+		Inn  string           `json:"inn"`  // ИНН руководителя
+		Name string           `json:"name"` // Наименование руководителя (для юрлиц)
+		Post string           `json:"post"` // Должность руководителя (для физлиц)
+		Hid  string           `json:"hid"`  // Внутренний идентификатор
+		Type PartyManagerType `json:"type"` // Тип руководителя
+		Fio  *FIO             `json:"fio"`  // ФИО руководителя (для физлиц)
+	}
+
+	// PartyFounderType - тип учредителя
+	PartyFounderType string
+
+	// PartyFounder - учредитель компании.
+	PartyFounder struct {
+		Ogrn string           `json:"ogrn"` // ОГРН учредителя (для юрлиц)
+		Inn  string           `json:"inn"`  // ИНН учредителя
+		Name string           `json:"name"` // Наименование учредителя (для юрлиц)
+		Hid  string           `json:"hid"`  // Внутренний идентификатор
+		Type PartyFounderType `json:"type"` // Тип учредителя (LEGAL / PHYSICAL)
+		Fio  *FIO             `json:"fio"`  // ФИО учредителя (для физлиц)
+	}
+
+	PartyAuthority struct {
+		Type    string `json:"type"`    // Код гос. органа
+		Code    string `json:"code"`    // Код отделения
+		Name    string `json:"name"`    // Наименование отделения
+		Address string `json:"address"` // Адрес отделения одной строкой
+	}
+
+	// PartyDocument - документ
+	PartyDocument struct {
+		Type           string `json:"type"`            // Тип документа
+		Series         string `json:"series"`          // Серия документа
+		Number         string `json:"number"`          // Номер документа
+		IssueDate      int64  `json:"issue_date"`      // Дата выдачи
+		IssueAuthority string `json:"issue_authority"` // Код подразделения
+	}
+
+	// PartyPhone - телефон организации
+	PartyPhone struct {
+		Value             string `json:"value"`              // Телефон одной строкой
+		UnrestrictedValue string `json:"unrestricted_value"` // Телефон одной строкой
+	}
+
+	// PartyEmail - email организации
+	PartyEmail struct {
+		Value             string `json:"value"`              // Адрес эл. почты одной строкой
+		UnrestrictedValue string `json:"unrestricted_value"` // Адрес эл. почты одной строкой
+	}
+
+	// PartyLicense - лицензия
+	PartyLicense struct {
+		Series string `json:"series"` // Серия документа
+		Number string `json:"number"` // Номер документа
+		// todo
 	}
 
 	// Country base struct for dadata.Country
@@ -337,5 +450,19 @@ type (
 		Name       string `json:"name"`
 		RegionCode string `json:"region_code"`
 		Type       string `json:"type"`
+	}
+
+	Gender string
+
+	FIO struct {
+		Surname    string `json:"surname"`    // Фамилия
+		Name       string `json:"name"`       // Имя
+		Patronymic string `json:"patronymic"` // Отчество
+		Gender     Gender `json:"gender"`     // Пол
+		// Код качества.
+		// 0 - если все части ФИО найдены в справочниках.
+		// 1 - если в ФИО есть часть не из справочника.
+		QC     string `json:"qc"`
+		Source string `json:"source"`
 	}
 )

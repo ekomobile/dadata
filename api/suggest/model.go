@@ -99,6 +99,7 @@ type (
 	}
 
 	// PartySuggestion api response for party
+	// https://confluence.hflabs.ru/pages/viewpage.action?pageId=204669122
 	PartySuggestion struct {
 		Value             string       `json:"value"`
 		UnrestrictedValue string       `json:"unrestricted_value"`

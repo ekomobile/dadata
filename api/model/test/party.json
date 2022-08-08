@@ -1,0 +1,207 @@
+{
+    "kpp": "773101001",
+    "capital": { "type": "УСТАВНЫЙ КАПИТАЛ", "value": 51348.0 },
+    "management": {
+        "name": "Чех Илья Игоревич",
+        "post": "ГЕНЕРАЛЬНЫЙ ДИРЕКТОР",
+        "disqualified": null
+    },
+    "founders": [
+        {
+            "ogrn": null,
+            "inn": null,
+            "name": "КОМПАНИЯ ХОМО АУКТУС ЛИМИТЕД",
+            "hid": "cada330cd8bdf8362b7653bc0b45cd743bbd3ff344b32f7b898c4b8d144a7fd4",
+            "type": "LEGAL",
+            "share": { "value": 77.8998, "type": "PERCENT" }
+        },
+        {
+            "ogrn": "1187746709358",
+            "inn": "7728437776",
+            "name": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"УК ДАЛЬНЕВОСТОЧНЫЙ ФОНД ВЫСОКИХ ТЕХНОЛОГИЙ\"",
+            "hid": "0ff0c9392d0b91c58559633b37531cfcc9555563b3aee8ca20ad5e6c987896f2",
+            "type": "LEGAL",
+            "share": { "value": 22.1002, "type": "PERCENT" }
+        }
+    ],
+    "managers": [
+        {
+            "inn": "781303761704",
+            "fio": {
+                "surname": "Чех",
+                "name": "Илья",
+                "patronymic": "Игоревич",
+                "gender": "MALE",
+                "source": "ЧЕХ ИЛЬЯ ИГОРЕВИЧ",
+                "qc": null
+            },
+            "post": "ГЕНЕРАЛЬНЫЙ ДИРЕКТОР",
+            "hid": "e680692ab083c142ceee2a09e57529c6d740c95c5216520a35d325c9edbcad64",
+            "type": "EMPLOYEE"
+        }
+    ],
+    "predecessors": null,
+    "successors": null,
+    "branch_type": "MAIN",
+    "branch_count": 0,
+    "source": null,
+    "qc": null,
+    "hid": "baf582914d601bc5246e881b07dfa6e336091a3857bebc3bf389aa0b4073223c",
+    "type": "LEGAL",
+    "state": {
+        "status": "ACTIVE",
+        "code": null,
+        "actuality_date": 1611273600000,
+        "registration_date": 1423094400000,
+        "liquidation_date": null
+    },
+    "opf": {
+        "type": "2014",
+        "code": "12300",
+        "full": "Общество с ограниченной ответственностью",
+        "short": "ООО"
+    },
+    "name": {
+        "full_with_opf": "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ \"МОТОРИКА\"",
+        "short_with_opf": "ООО \"МОТОРИКА\"",
+        "latin": null,
+        "full": "МОТОРИКА",
+        "short": "МОТОРИКА"
+    },
+    "inn": "7719402047",
+    "ogrn": "1157746078984",
+    "okpo": "27539247",
+    "okato": "45268569000",
+    "oktmo": "45321000000",
+    "okogu": "4210011",
+    "okfs": "34",
+    "okved": "72.19",
+    "okveds": [
+        {
+            "main": true,
+            "type": "2014",
+            "code": "72.19",
+            "name": "Научные исследования и разработки в области естественных и технических наук прочие"
+        }
+    ],
+    "authorities": {
+        "fts_registration": {
+            "type": "FEDERAL_TAX_SERVICE",
+            "code": "7746",
+            "name": "Межрайонная инспекция Федеральной налоговой службы № 46 по г. Москве",
+            "address": "125373, г.Москва, Походный проезд, домовладение 3, стр.2"
+        },
+        "fts_report": {
+            "type": "FEDERAL_TAX_SERVICE",
+            "code": "7731",
+            "name": "Инспекция Федеральной налоговой службы № 31 по г.Москве",
+            "address": null
+        },
+        "pf": {
+            "type": "PENSION_FUND",
+            "code": "087803",
+            "name": "Государственное учреждение - Главное Управление Пенсионного фонда РФ №2 Управление №7 по г. Москве и Московской области муниципальный район Можайский г.Москвы",
+            "address": null
+        },
+        "sif": {
+            "type": "SOCIAL_INSURANCE_FUND",
+            "code": "7738",
+            "name": "Филиал №38 Государственного учреждения - Московского регионального отделения Фонда социального страхования Российской Федерации",
+            "address": null
+        }
+    },
+    "documents": {
+        "fts_registration": {
+            "type": "FTS_REGISTRATION",
+            "series": "77",
+            "number": "016942308",
+            "issue_date": 1423094400000,
+            "issue_authority": "7746"
+        },
+        "fts_report": {
+            "type": "FTS_REPORT",
+            "series": null,
+            "number": null,
+            "issue_date": 1519084800000,
+            "issue_authority": "7731"
+        },
+        "pf_registration": {
+            "type": "PF_REGISTRATION",
+            "series": null,
+            "number": "087803025754",
+            "issue_date": 1519689600000,
+            "issue_authority": "087803"
+        },
+        "sif_registration": {
+            "type": "SIF_REGISTRATION",
+            "series": null,
+            "number": "772406613777381",
+            "issue_date": 1512432000000,
+            "issue_authority": "7738"
+        },
+        "smb": {
+            "category": "SMALL",
+            "type": "SMB",
+            "series": null,
+            "number": null,
+            "issue_date": 1565384400000,
+            "issue_authority": null
+        }
+    },
+    "licenses": [
+        {
+            "series": "123123",
+            "number": "456456"
+        },
+        {
+            "series": "234234",
+            "number": "567567"
+        }
+    ],
+    "finance": {
+        "tax_system": null,
+        "income": 90183000.0,
+        "expense": 128338000.0,
+        "debt": null,
+        "penalty": null,
+        "year": 2019
+    },
+    "phones": [
+        {
+            "value": "+7 911 2410309",
+            "unrestricted_value": "+7 911 2410309",
+            "data": {
+                "contact": null,
+                "source": "+7 911 241 0309",
+                "qc": null,
+                "type": "Мобильный",
+                "number": "2410309",
+                "extension": null,
+                "provider": "ПАО \"Мобильные ТелеСистемы\"",
+                "country": null,
+                "region": "Санкт-Петербург и Ленинградская область",
+                "city": null,
+                "timezone": "UTC+3",
+                "country_code": "7",
+                "city_code": "911",
+                "qc_conflict": null
+            }
+        }
+    ],
+    "emails": [
+        {
+            "value": "INFO@MOTORICA.ORG",
+            "unrestricted_value": "INFO@MOTORICA.ORG",
+            "data": {
+                "local": "INFO",
+                "domain": "MOTORICA.ORG",
+                "type": null,
+                "source": "info@motorica.org",
+                "qc": null
+            }
+        }
+    ],
+    "ogrn_date": 1423094400000,
+    "okved_type": "2014",
+    "employee_count": 59
+}

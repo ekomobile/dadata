@@ -1,9 +1,12 @@
 package client
 
 import (
+	"errors"
+	"io"
 	"net/http"
 	"testing"
 
+	"github.com/ekomobile/dadata/v2/client/transport"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -44,6 +47,64 @@ func TestWithCredentialProvider(t *testing.T) {
 			WithCredentialProvider(tt.args.c)(opts)
 
 			assert.Equal(t, tt.args.c, opts.credentialProvider)
+		})
+	}
+}
+
+func TestWithEncoderFactory(t *testing.T) {
+	type args struct {
+		c transport.EncoderFactory
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "TestWithEncoderFactory",
+			args: args{
+				c: func(w io.Writer) transport.Encoder {
+					return func(v interface{}) error {
+						return errors.New("c164a8d0-64b6-4374-a4b4-4036fbee504b")
+					}
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			opts := &clientOptions{}
+			WithEncoderFactory(tt.args.c)(opts)
+
+			assert.True(t, tt.args.c(nil)(nil).Error() == opts.encoderFactory(nil)(nil).Error())
+		})
+	}
+}
+
+func TestWithDecoderFactory(t *testing.T) {
+	type args struct {
+		c transport.DecoderFactory
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "TestWithDecoderFactory",
+			args: args{
+				c: func(r io.Reader) transport.Decoder {
+					return func(v interface{}) error {
+						return errors.New("b02ef946-15c8-40e0-b94d-efc3b26a8f75")
+					}
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			opts := &clientOptions{}
+			WithDecoderFactory(tt.args.c)(opts)
+
+			assert.True(t, tt.args.c(nil)(nil).Error() == opts.decoderFactory(nil)(nil).Error())
 		})
 	}
 }

@@ -3,10 +3,11 @@ package client
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
+
+	"github.com/ekomobile/dadata/v2/client/transport"
 )
 
 type (
@@ -25,6 +26,8 @@ type (
 		httpClient         *http.Client
 		credentialProvider CredentialProvider
 		endpointURL        *url.URL
+		encoderFactory     transport.EncoderFactory
+		decoderFactory     transport.DecoderFactory
 	}
 )
 
@@ -43,6 +46,14 @@ func NewClient(endpointURL *url.URL, opts ...Option) *Client {
 
 	applyOptions(&options, opts...)
 
+	if options.encoderFactory == nil {
+		options.encoderFactory = defaultJsonEncoderFactory()
+	}
+
+	if options.decoderFactory == nil {
+		options.decoderFactory = defaultJsonDecoderFactory()
+	}
+
 	return &Client{
 		options: options,
 	}
@@ -50,21 +61,19 @@ func NewClient(endpointURL *url.URL, opts ...Option) *Client {
 
 func (c *Client) doRequest(ctx context.Context, method string, url *url.URL, body interface{}, result interface{}) (err error) {
 	if err = ctx.Err(); err != nil {
-		return fmt.Errorf("doRequest: ctx.Err return err=%v", err)
+		return fmt.Errorf("doRequest: context err: %w", err)
 	}
 
 	buffer := &bytes.Buffer{}
 
-	if err = json.NewEncoder(buffer).Encode(body); err != nil {
-		return fmt.Errorf("doRequest: json.Encode return err = %v", err)
+	if err = c.options.encoderFactory(buffer)(body); err != nil {
+		return fmt.Errorf("doRequest: request body ecnode err: %w", err)
 	}
 
-	request, err := http.NewRequest(method, url.String(), buffer)
+	request, err := http.NewRequestWithContext(ctx, method, url.String(), buffer)
 	if err != nil {
-		return fmt.Errorf("doRequest: http.NewRequest return err = %v", err)
+		return fmt.Errorf("doRequest: new request err: %w", err)
 	}
-
-	request = request.WithContext(ctx)
 
 	request.Header.Add("Authorization", fmt.Sprintf("Token %s", c.options.credentialProvider.ApiKey()))
 	request.Header.Add("X-Secret", c.options.credentialProvider.SecretKey())
@@ -73,17 +82,20 @@ func (c *Client) doRequest(ctx context.Context, method string, url *url.URL, bod
 
 	response, err := c.options.httpClient.Do(request)
 	if err != nil {
-		return fmt.Errorf("doRequest: httpClient.Do return err = %v", err)
+		return fmt.Errorf("doRequest: request do err: %w", err)
 	}
 
 	defer response.Body.Close()
 
 	if http.StatusOK != response.StatusCode {
-		return fmt.Errorf("doRequest: Request error %v", response.Status)
+		return fmt.Errorf(
+			"doRequest: Response not OK: %w",
+			&ResponseError{Status: response.Status, StatusCode: response.StatusCode},
+		)
 	}
 
-	if err = json.NewDecoder(response.Body).Decode(&result); err != nil {
-		return fmt.Errorf("doRequest: json.Decode return err = %v", err)
+	if err = c.options.decoderFactory(response.Body)(&result); err != nil {
+		return fmt.Errorf("doRequest: response body decode err: %w", err)
 	}
 
 	return

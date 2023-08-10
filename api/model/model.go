@@ -143,6 +143,7 @@ type (
 		HouseType            string `json:"house_type"`              // Тип дома (сокращенный)
 		HouseTypeFull        string `json:"house_type_full"`         // Тип дома
 		House                string `json:"house"`                   // Дом
+		HouseCadNum          string `json:"house_cadnum"`            // Кадастровый номер дома (22.4+). Заполняется в зависимости от тарифа «Дадаты».
 		BlockType            string `json:"block_type"`              // Тип корпуса/строения (сокращенный)
 		BlockTypeFull        string `json:"block_type_full"`         // Тип корпуса/строения
 		Block                string `json:"block"`                   // Корпус/строение
@@ -153,6 +154,7 @@ type (
 		FlatTypeFull         string `json:"flat_type_full"`          // Тип квартиры
 		Flat                 string `json:"flat"`                    // Квартира
 		FlatArea             string `json:"flat_area"`               // Площадь квартиры
+		FlatCadNum           string `json:"flat_cadnum"`             // Кадастровый номер квартиры (22.4+). Заполняется в зависимости от тарифа «Дадаты».
 		SquareMeterPrice     string `json:"square_meter_price"`      // Рыночная стоимость м²
 		FlatPrice            string `json:"flat_price"`              // Рыночная стоимость квартиры
 		PostalBox            string `json:"postal_box"`              // Абонентский ящик

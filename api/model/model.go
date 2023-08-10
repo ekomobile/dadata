@@ -46,6 +46,7 @@ const (
 
 // const for SuggestBound
 const (
+	SuggestBoundCountry    BoundValue = "country"    // Страна
 	SuggestBoundRegion     BoundValue = "region"     // Регион
 	SuggestBoundArea       BoundValue = "area"       // Район
 	SuggestBoundCity       BoundValue = "city"       // Город

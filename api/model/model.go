@@ -338,7 +338,7 @@ type (
 		Okogu  string `json:"okogu"`
 		Okfs   string `json:"okfs"`
 		Okved  string `json:"okved"`
-		Fio    FIO    `json:fio`
+		Fio    *FIO   `json:"fio"`
 		Okveds []*struct {
 			Main bool   `json:"main"`
 			Type string `json:"type"`

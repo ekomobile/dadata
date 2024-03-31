@@ -1,3 +1,5 @@
+// Live API tests.
+// To run API test pass `DADATA_API_KEY` and `DADATA_SECRET_KEY` environment variables with your values.
 package dadata
 
 import (
@@ -15,12 +17,30 @@ type (
 	ApiSuggestIntegrationTest struct {
 		suite.Suite
 	}
+
+	ApiCleanIntegrationTest struct {
+		suite.Suite
+	}
 )
 
 func (s *ApiSuggestIntegrationTest) SetupSuite() {
 	if _, ok := os.LookupEnv("DADATA_API_KEY"); !ok {
 		s.Suite.T().Skip("no api keys in env")
 	}
+}
+
+func (s *ApiCleanIntegrationTest) SetupSuite() {
+	if _, ok := os.LookupEnv("DADATA_API_KEY"); !ok {
+		s.Suite.T().Skip("no api keys in env")
+	}
+}
+
+func TestSuggestApiIntegration(t *testing.T) {
+	suite.Run(t, &ApiSuggestIntegrationTest{})
+}
+
+func TestCleanApiIntegration(t *testing.T) {
+	suite.Run(t, &ApiCleanIntegrationTest{})
 }
 
 func (s *ApiSuggestIntegrationTest) TestAddress() {
@@ -158,8 +178,60 @@ func (s *ApiSuggestIntegrationTest) TestFMSUnit() {
 	s.NotEmpty(res)
 }
 
-func TestSuggestApiIntegration(t *testing.T) {
-	suite.Run(t, &ApiSuggestIntegrationTest{})
+func (s *ApiCleanIntegrationTest) TestAddress() {
+	api := NewCleanApi()
+	res, err := api.Address(context.Background(), "мск сухонска 11/-89")
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Len(res, 1)
+}
+
+func (s *ApiCleanIntegrationTest) TestPhone() {
+	api := NewCleanApi()
+	res, err := api.Phone(context.Background(), "+79851234567")
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Len(res, 1)
+}
+
+func (s *ApiCleanIntegrationTest) TestName() {
+	api := NewCleanApi()
+	res, err := api.Name(context.Background(), "Срегей владимерович иванов")
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Len(res, 1)
+}
+
+func (s *ApiCleanIntegrationTest) TestEmail() {
+	api := NewCleanApi()
+	res, err := api.Email(context.Background(), "serega@yandex/ru")
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Len(res, 1)
+}
+
+func (s *ApiCleanIntegrationTest) TestBirthday() {
+	api := NewCleanApi()
+	res, err := api.Birthday(context.Background(), "12 12 12")
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Len(res, 1)
+}
+
+func (s *ApiCleanIntegrationTest) TestVehicle() {
+	api := NewCleanApi()
+	res, err := api.Vehicle(context.Background(), "форд фокус")
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Len(res, 1)
+}
+
+func (s *ApiCleanIntegrationTest) TestPassport() {
+	api := NewCleanApi()
+	res, err := api.Passport(context.Background(), "4509 235857")
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Len(res, 1)
 }
 
 func ExampleNewSuggestApi() {

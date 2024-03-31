@@ -206,7 +206,9 @@ type (
 		Number              string `json:"number"`       // Локальный номер телефона
 		Extension           string `json:"extension"`    // Добавочный номер
 		Provider            string `json:"provider"`     // Оператор связи
+		Country		    string `json:"country"`      // Страна
 		Region              string `json:"region"`       // Регион
+		City                string `json:"city"`         // Город
 		Timezone            string `json:"timezone"`     // Часовой пояс
 		QualityCodeConflict int    `json:"qc_conflict"`  // Признак конфликта телефона с адресом
 		QualityCode         int    `json:"qc"`           // Код качества

@@ -1,0 +1,16 @@
+{
+  "source": "+79851234567",
+  "type": "Мобильный",
+  "phone": "+7 985 123-45-67",
+  "country_code": "7",
+  "city_code": "985",
+  "number": "1234567",
+  "extension": null,
+  "provider": "ПАО \"Мобильные ТелеСистемы\"",
+  "country": "Россия",
+  "region": "Москва и Московская область",
+  "city": null,
+  "timezone": "UTC+3",
+  "qc_conflict": 0,
+  "qc": 0
+}

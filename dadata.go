@@ -15,11 +15,14 @@ const (
 	EndpointURL = "https://dadata.ru/api/v2/"
 	// EndpointURLSuggest is a suggestion API endpoint.
 	EndpointURLSuggest = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/"
+	// EndpointURLClean is a cleaner API endpoint.
+	EndpointURLClean = "https://cleaner.dadata.ru/api/v1/"
 )
 
 var (
 	endpointURL        *url.URL
 	endpointURLSuggest *url.URL
+	endpointURLClean   *url.URL
 )
 
 func init() {
@@ -34,12 +37,17 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	endpointURLClean, err = url.Parse(EndpointURLClean)
+	if err != nil {
+		panic(err)
+	}
 }
 
 // NewCleanApi provides "clean" API.
 func NewCleanApi(opts ...client.Option) *clean.Api {
 	return &clean.Api{
-		Client: client.NewClient(endpointURL, opts...),
+		Client: client.NewClient(endpointURLClean, opts...),
 	}
 }
 

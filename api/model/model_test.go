@@ -40,3 +40,51 @@ func TestParty(t *testing.T) {
 	assert.Equal(t, PartyFounderTypeLegal, model.Founders[0].Type)
 	assert.Equal(t, PartySMBCategorySmall, model.Documents.Smb.Category)
 }
+
+func TestPhone1(t *testing.T) {
+	dataReader, err := os.Open("test/phone1.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer dataReader.Close()
+
+	model := Phone{}
+
+	err = json.NewDecoder(dataReader).Decode(&model)
+	assert.NoError(t, err)
+	assert.Equal(t, "+375123456789", model.Source)
+	assert.Equal(t, "Беларусь", model.Country)
+	assert.Equal(t, "", model.City)
+}
+
+func TestPhone2(t *testing.T) {
+	dataReader, err := os.Open("test/phone2.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer dataReader.Close()
+
+	model := Phone{}
+
+	err = json.NewDecoder(dataReader).Decode(&model)
+	assert.NoError(t, err)
+	assert.Equal(t, "+79851234567", model.Source)
+	assert.Equal(t, "Россия", model.Country)
+	assert.Equal(t, "", model.City)
+}
+
+func TestPhone3(t *testing.T) {
+	dataReader, err := os.Open("test/phone3.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer dataReader.Close()
+
+	model := Phone{}
+
+	err = json.NewDecoder(dataReader).Decode(&model)
+	assert.NoError(t, err)
+	assert.Equal(t, "+123", model.Source)
+	assert.Equal(t, "", model.Country)
+	assert.Equal(t, "", model.City)
+}

@@ -42,6 +42,7 @@ type (
 	RequestParams struct {
 		Query         string                   `json:"query"` // user input for suggestion
 		Count         int                      `json:"count"` // ligmit for results
+		Language      string                   `json:"language"`
 		Locations     []*RequestParamsLocation `json:"locations"`
 		RestrictValue bool                     `json:"restrict_value"` // don't show restricts (region) on results
 

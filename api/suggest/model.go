@@ -40,15 +40,15 @@ type (
 
 	// RequestParams Request struct
 	RequestParams struct {
-		Type          *PartyType               `json:"type,omitempty"` // party type for the suggestion (user input)
-		Query         string                   `json:"query"`          // user input for suggestion
-		Count         int                      `json:"count"`          // ligmit for results
+		Type          PartyType                `json:"type,omitempty"`  // party type for the suggestion (user input)
+		Query         string                   `json:"query"`           // user input for suggestion
+		Count         int                      `json:"count,omitempty"` // ligmit for results
 		Language      string                   `json:"language,omitempty"`
-		Locations     []*RequestParamsLocation `json:"locations"`
-		RestrictValue bool                     `json:"restrict_value"` // don't show restricts (region) on results
+		Locations     []*RequestParamsLocation `json:"locations,omitempty"`
+		RestrictValue bool                     `json:"restrict_value,omitempty"` // don't show restricts (region) on results
 
-		FromBound *Bound `json:"from_bound"`
-		ToBound   *Bound `json:"to_bound"`
+		FromBound *Bound `json:"from_bound,omitempty"`
+		ToBound   *Bound `json:"to_bound,omitempty"`
 	}
 
 	// AddressResponse result slice for address suggestions

@@ -105,10 +105,9 @@ func (s *ApiSuggestIntegrationTest) TestPartyWithTypePositive() {
 	api := NewSuggestApi()
 
 	// positive: there are some legal entities "сбербанк"
-	legalParty := suggest.PartyTypeLegal
 	res, err := api.Party(context.Background(), &suggest.RequestParams{
 		Query: "сбербанк",
-		Type:  &legalParty,
+		Type:  suggest.PartyTypeLegal,
 	})
 
 	s.NoError(err)
@@ -119,10 +118,9 @@ func (s *ApiSuggestIntegrationTest) TestPartyWithTypeNegative() {
 	api := NewSuggestApi()
 
 	// there are no one individual entrepreneur "сбербанк"
-	individualParty := suggest.PartyTypeIndividual
 	res, err := api.Party(context.Background(), &suggest.RequestParams{
 		Query: "сбербанк",
-		Type:  &individualParty,
+		Type:  suggest.PartyTypeIndividual,
 	})
 
 	s.NoError(err)

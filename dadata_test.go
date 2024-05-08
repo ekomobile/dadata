@@ -87,7 +87,7 @@ func (s *ApiSuggestIntegrationTest) TestPartyWithTypePositive() {
 	s.NotEmpty(res)
 }
 
-func (s *ApiSuggestIntegrationTest) TestPartyWithTypeMegative() {
+func (s *ApiSuggestIntegrationTest) TestPartyWithTypeNegative() {
 	api := NewSuggestApi()
 
 	// there are no one individual entrepreneur "сбербанк"

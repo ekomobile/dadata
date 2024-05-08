@@ -53,6 +53,34 @@ func (s *ApiSuggestIntegrationTest) TestAddress() {
 	s.NotEmpty(res)
 }
 
+func (s *ApiSuggestIntegrationTest) TestAddressWithLanguageParamRU() {
+	api := NewSuggestApi()
+
+	params := suggest.RequestParams{
+		Query:    "ул Свободы",
+		Language: "RU",
+	}
+
+	res, err := api.Address(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestAddressWithLanguageParamEN() {
+	api := NewSuggestApi()
+
+	params := suggest.RequestParams{
+		Query:    "ул Свободы",
+		Language: "EN",
+	}
+
+	res, err := api.Address(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
 func (s *ApiSuggestIntegrationTest) TestBank() {
 	api := NewSuggestApi()
 	params := suggest.RequestParams{

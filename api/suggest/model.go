@@ -40,8 +40,9 @@ type (
 
 	// RequestParams Request struct
 	RequestParams struct {
-		Query         string                   `json:"query"` // user input for suggestion
-		Count         int                      `json:"count"` // ligmit for results
+		Type          *PartyType               `json:"type,omitempty"` // party type for the suggestion (user input)
+		Query         string                   `json:"query"`          // user input for suggestion
+		Count         int                      `json:"count"`          // ligmit for results
 		Locations     []*RequestParamsLocation `json:"locations"`
 		RestrictValue bool                     `json:"restrict_value"` // don't show restricts (region) on results
 

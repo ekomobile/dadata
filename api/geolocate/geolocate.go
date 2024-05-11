@@ -17,10 +17,10 @@ type (
 	}
 )
 
-// AddressByGeolocate try to return suggest addresses by params
+// AddressByCoordinates try to return suggest addresses by params
 // see documentation on:https://dadata.ru/api/geolocate/
-func (a *Api) AddressByGeolocate(ctx context.Context, params *RequestParams) (ret []*AddressGeolocateSuggestion, err error) {
-	var result = &AddressGeolocateResponse{}
+func (a *Api) AddressByCoordinates(ctx context.Context, params *RequestParams) (ret []*AddressSuggestion, err error) {
+	var result = &AddressResponse{}
 	err = a.Client.Post(ctx, "geolocate/address", params, result)
 	if err != nil {
 		return

@@ -13,15 +13,15 @@ type (
 		Language     string `json:"language,omitempty"`      // in which language to return the result (ru / en)
 	}
 
-	// AddressGeolocateSuggestion api response for address
-	AddressGeolocateSuggestion struct {
+	// AddressSuggestion api response for address
+	AddressSuggestion struct {
 		Value             string         `json:"value"`
 		UnrestrictedValue string         `json:"unrestricted_value"`
 		Data              *model.Address `json:"data"`
 	}
 
-	// AddressGeolocateResponse result slice for address suggestions
-	AddressGeolocateResponse struct {
-		Suggestions []*AddressGeolocateSuggestion `json:"suggestions"`
+	// AddressResponse result slice for address suggestions
+	AddressResponse struct {
+		Suggestions []*AddressSuggestion `json:"suggestions"`
 	}
 )

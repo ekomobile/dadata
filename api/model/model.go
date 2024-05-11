@@ -92,7 +92,7 @@ type (
 	// full documentation https://confluence.hflabs.ru/pages/viewpage.action?pageId=222888017
 	BoundValue string
 
-	// Address base struct for datdata.AddressByGeolocate
+	// Address base struct for datdata.AddressByCoordinates
 	Address struct {
 		Source               string `json:"source"`                  // Исходный адрес одной строкой
 		Result               string `json:"result"`                  // Стандартизованный адрес одной строкой

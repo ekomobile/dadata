@@ -4,6 +4,7 @@ import (
 	"net/url"
 
 	"github.com/ekomobile/dadata/v2/api/clean"
+	"github.com/ekomobile/dadata/v2/api/geolocate"
 	"github.com/ekomobile/dadata/v2/api/profile"
 	"github.com/ekomobile/dadata/v2/api/stat"
 	"github.com/ekomobile/dadata/v2/api/suggest"
@@ -15,6 +16,7 @@ const (
 	EndpointURL = "https://dadata.ru/api/v2/"
 	// EndpointURLSuggest is a suggestion API endpoint.
 	EndpointURLSuggest = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/"
+
 	// EndpointURLClean is a cleaner API endpoint.
 	EndpointURLClean = "https://cleaner.dadata.ru/api/v1/"
 )
@@ -54,6 +56,12 @@ func NewCleanApi(opts ...client.Option) *clean.Api {
 // NewSuggestApi provides suggestion API.
 func NewSuggestApi(opts ...client.Option) *suggest.Api {
 	return &suggest.Api{
+		Client: client.NewClient(endpointURLSuggest, opts...),
+	}
+}
+
+func NewGeolocateApi(opts ...client.Option) *geolocate.Api {
+	return &geolocate.Api{
 		Client: client.NewClient(endpointURLSuggest, opts...),
 	}
 }

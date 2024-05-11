@@ -6,8 +6,10 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strconv"
 	"testing"
 
+	"github.com/ekomobile/dadata/v2/api/geolocate"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/ekomobile/dadata/v2/api/suggest"
@@ -19,6 +21,10 @@ type (
 	}
 
 	ApiCleanIntegrationTest struct {
+		suite.Suite
+	}
+
+	ApiGeolocateIntegrationTest struct {
 		suite.Suite
 	}
 )
@@ -35,12 +41,22 @@ func (s *ApiCleanIntegrationTest) SetupSuite() {
 	}
 }
 
+func (s *ApiGeolocateIntegrationTest) SetupSuite() {
+	if _, ok := os.LookupEnv("DADATA_API_KEY"); !ok {
+		s.Suite.T().Skip("no api keys in env")
+	}
+}
+
 func TestSuggestApiIntegration(t *testing.T) {
 	suite.Run(t, &ApiSuggestIntegrationTest{})
 }
 
 func TestCleanApiIntegration(t *testing.T) {
 	suite.Run(t, &ApiCleanIntegrationTest{})
+}
+
+func TestGeolocationApiIntegration(t *testing.T) {
+	suite.Run(t, &ApiGeolocateIntegrationTest{})
 }
 
 func (s *ApiSuggestIntegrationTest) TestAddress() {
@@ -286,6 +302,106 @@ func (s *ApiCleanIntegrationTest) TestPassport() {
 	s.NoError(err)
 	s.NotEmpty(res)
 	s.Len(res, 1)
+}
+
+func (s *ApiGeolocateIntegrationTest) TestAddressByCoordinatesWithoutLongitude() {
+	api := NewGeolocateApi()
+
+	params := geolocate.RequestParams{
+		Lat: "55.878",
+	}
+
+	res, err := api.AddressByCoordinates(context.Background(), &params)
+
+	s.NoError(err)
+	s.Empty(res)
+}
+
+func (s *ApiGeolocateIntegrationTest) TestAddressByCoordinatesWithoutLatitude() {
+	api := NewGeolocateApi()
+
+	params := geolocate.RequestParams{
+		Lon: "37.653",
+	}
+
+	res, err := api.AddressByCoordinates(context.Background(), &params)
+
+	s.NoError(err)
+	s.Empty(res)
+}
+
+func (s *ApiGeolocateIntegrationTest) TestAddressByCoordinatesWithEmptyBody() {
+	api := NewGeolocateApi()
+
+	params := geolocate.RequestParams{}
+
+	res, err := api.AddressByCoordinates(context.Background(), &params)
+
+	s.NoError(err)
+	s.Empty(res)
+}
+
+func (s *ApiGeolocateIntegrationTest) TestAddressByCoordinatesWithLanguageParamRU() {
+	api := NewGeolocateApi()
+
+	params := geolocate.RequestParams{
+		Lat:      "55.878",
+		Lon:      "37.653",
+		Language: "RU",
+	}
+
+	res, err := api.AddressByCoordinates(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
+func (s *ApiGeolocateIntegrationTest) TestAddressByCoordinatesWithLanguageParamEN() {
+	api := NewGeolocateApi()
+
+	params := geolocate.RequestParams{
+		Lat:      "55.878",
+		Lon:      "37.653",
+		Language: "EN",
+	}
+
+	res, err := api.AddressByCoordinates(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
+func (s *ApiGeolocateIntegrationTest) TestAddressByCoordinatesWithCountTwo() {
+	api := NewGeolocateApi()
+	reqElementCount := 2
+
+	params := geolocate.RequestParams{
+		Lat:      "55.878",
+		Lon:      "37.653",
+		Language: "EN",
+		Count:    strconv.Itoa(reqElementCount),
+	}
+
+	res, err := api.AddressByCoordinates(context.Background(), &params)
+
+	s.NoError(err)
+	s.Len(res, 2)
+}
+
+func (s *ApiGeolocateIntegrationTest) TestAddressByCoordinatesWithRadius() {
+	api := NewGeolocateApi()
+
+	params := geolocate.RequestParams{
+		Lat:          "55.878",
+		Lon:          "37.653",
+		Language:     "EN",
+		RadiusMeters: "100",
+	}
+
+	res, err := api.AddressByCoordinates(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
 }
 
 func ExampleNewSuggestApi() {

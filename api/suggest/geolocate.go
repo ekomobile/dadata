@@ -10,8 +10,8 @@ type (
 	GeolocateParams struct {
 		Lat          string `json:"lat"`                     // geographic latitude
 		Lon          string `json:"lon"`                     // geographic longitude
-		Count        string `json:"count,omitempty"`         // number of results (max 20)
-		RadiusMeters string `json:"radius_meters,omitempty"` // search radius in metres (max. 1000)
+		Count        int    `json:"count,omitempty"`         // number of results (max 20)
+		RadiusMeters int    `json:"radius_meters,omitempty"` // search radius in metres (max. 1000)
 		Language     string `json:"language,omitempty"`      // in which language to return the result (ru / en)
 	}
 

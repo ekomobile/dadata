@@ -6,7 +6,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -364,13 +363,13 @@ func (s *ApiSuggestIntegrationTest) TestGeoLocateWithCountTwo() {
 		Lat:      "55.878",
 		Lon:      "37.653",
 		Language: "EN",
-		Count:    strconv.Itoa(reqElementCount),
+		Count:    reqElementCount,
 	}
 
 	res, err := api.GeoLocate(context.Background(), &params)
 
 	s.NoError(err)
-	s.Len(res, 2)
+	s.Len(res, reqElementCount)
 }
 
 func (s *ApiSuggestIntegrationTest) TestGeoLocateWithRadius() {
@@ -380,7 +379,7 @@ func (s *ApiSuggestIntegrationTest) TestGeoLocateWithRadius() {
 		Lat:          "55.878",
 		Lon:          "37.653",
 		Language:     "EN",
-		RadiusMeters: "100",
+		RadiusMeters: 100,
 	}
 
 	res, err := api.GeoLocate(context.Background(), &params)

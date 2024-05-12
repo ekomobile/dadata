@@ -1,11 +1,13 @@
-package geolocate
+package suggest
 
-import "github.com/ekomobile/dadata/v2/api/model"
+import (
+	"github.com/ekomobile/dadata/v2/api/model"
+)
 
 type (
-	// RequestParams Request struct
+	// GeolocateParams Request struct
 	// full documentation https://confluence.hflabs.ru/pages/viewpage.action?pageId=808583277
-	RequestParams struct {
+	GeolocateParams struct {
 		Lat          string `json:"lat"`                     // geographic latitude
 		Lon          string `json:"lon"`                     // geographic longitude
 		Count        string `json:"count,omitempty"`         // number of results (max 20)
@@ -13,15 +15,15 @@ type (
 		Language     string `json:"language,omitempty"`      // in which language to return the result (ru / en)
 	}
 
-	// AddressSuggestion api response for address
-	AddressSuggestion struct {
+	// GeolocateSuggestion api response for address
+	GeolocateSuggestion struct {
 		Value             string         `json:"value"`
 		UnrestrictedValue string         `json:"unrestricted_value"`
 		Data              *model.Address `json:"data"`
 	}
 
-	// AddressResponse result slice for address suggestions
-	AddressResponse struct {
-		Suggestions []*AddressSuggestion `json:"suggestions"`
+	// GeolocateResponse result slice for address suggestions
+	GeolocateResponse struct {
+		Suggestions []*GeolocateSuggestion `json:"suggestions"`
 	}
 )

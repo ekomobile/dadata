@@ -4,7 +4,6 @@ import (
 	"net/url"
 
 	"github.com/ekomobile/dadata/v2/api/clean"
-	"github.com/ekomobile/dadata/v2/api/geolocate"
 	"github.com/ekomobile/dadata/v2/api/profile"
 	"github.com/ekomobile/dadata/v2/api/stat"
 	"github.com/ekomobile/dadata/v2/api/suggest"
@@ -56,12 +55,6 @@ func NewCleanApi(opts ...client.Option) *clean.Api {
 // NewSuggestApi provides suggestion API.
 func NewSuggestApi(opts ...client.Option) *suggest.Api {
 	return &suggest.Api{
-		Client: client.NewClient(endpointURLSuggest, opts...),
-	}
-}
-
-func NewGeolocateApi(opts ...client.Option) *geolocate.Api {
-	return &geolocate.Api{
 		Client: client.NewClient(endpointURLSuggest, opts...),
 	}
 }

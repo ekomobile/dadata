@@ -288,6 +288,106 @@ func (s *ApiCleanIntegrationTest) TestPassport() {
 	s.Len(res, 1)
 }
 
+func (s *ApiSuggestIntegrationTest) TestGeoLocateWithoutLongitude() {
+	api := NewSuggestApi()
+
+	params := suggest.GeolocateParams{
+		Lat: "55.878",
+	}
+
+	res, err := api.GeoLocate(context.Background(), &params)
+
+	s.NoError(err)
+	s.Empty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestGeoLocateWithoutLatitude() {
+	api := NewSuggestApi()
+
+	params := suggest.GeolocateParams{
+		Lon: "37.653",
+	}
+
+	res, err := api.GeoLocate(context.Background(), &params)
+
+	s.NoError(err)
+	s.Empty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestGeoLocateWithEmptyBody() {
+	api := NewSuggestApi()
+
+	params := suggest.GeolocateParams{}
+
+	res, err := api.GeoLocate(context.Background(), &params)
+
+	s.NoError(err)
+	s.Empty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestGeoLocateWithLanguageParamRU() {
+	api := NewSuggestApi()
+
+	params := suggest.GeolocateParams{
+		Lat:      "55.878",
+		Lon:      "37.653",
+		Language: "RU",
+	}
+
+	res, err := api.GeoLocate(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestGeoLocateWithLanguageParamEN() {
+	api := NewSuggestApi()
+
+	params := suggest.GeolocateParams{
+		Lat:      "55.878",
+		Lon:      "37.653",
+		Language: "EN",
+	}
+
+	res, err := api.GeoLocate(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestGeoLocateWithCountTwo() {
+	api := NewSuggestApi()
+	reqElementCount := 2
+
+	params := suggest.GeolocateParams{
+		Lat:      "55.878",
+		Lon:      "37.653",
+		Language: "EN",
+		Count:    reqElementCount,
+	}
+
+	res, err := api.GeoLocate(context.Background(), &params)
+
+	s.NoError(err)
+	s.Len(res, reqElementCount)
+}
+
+func (s *ApiSuggestIntegrationTest) TestGeoLocateWithRadius() {
+	api := NewSuggestApi()
+
+	params := suggest.GeolocateParams{
+		Lat:          "55.878",
+		Lon:          "37.653",
+		Language:     "EN",
+		RadiusMeters: 100,
+	}
+
+	res, err := api.GeoLocate(context.Background(), &params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+}
+
 func ExampleNewSuggestApi() {
 	api := NewSuggestApi()
 

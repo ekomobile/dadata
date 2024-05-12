@@ -15,6 +15,7 @@ const (
 	EndpointURL = "https://dadata.ru/api/v2/"
 	// EndpointURLSuggest is a suggestion API endpoint.
 	EndpointURLSuggest = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/"
+
 	// EndpointURLClean is a cleaner API endpoint.
 	EndpointURLClean = "https://cleaner.dadata.ru/api/v1/"
 )

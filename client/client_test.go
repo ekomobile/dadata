@@ -1,6 +1,7 @@
 package client
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -9,6 +10,7 @@ import (
 
 	"github.com/ekomobile/dadata/v2/api/suggest"
 	"github.com/ekomobile/dadata/v2/client/transport"
+	"github.com/ekomobile/dadata/v2/client/transport/encoder"
 )
 
 func ExampleNewClient() {
@@ -107,4 +109,27 @@ func ExampleWithEncoderFactory() {
 	for _, s := range suggestions {
 		fmt.Printf("%s", s.Value)
 	}
+}
+
+func ExampleClient_low_level() {
+	var err error
+	endpointUrl, err := url.Parse("https://suggestions.dadata.ru/suggestions/api/4_1/rs/")
+	if err != nil {
+		return
+	}
+
+	cli := NewClient(endpointUrl,
+		WithEncoderFactory(encoder.RawEncoderFactory()),
+		WithDecoderFactory(encoder.RawDecoderFactory()),
+	)
+
+	request := bytes.NewBufferString("{ \"query\": \"москва хабар\" }")
+	response := &bytes.Buffer{}
+
+	err = cli.Post(context.Background(), "suggest/address", request, response)
+	if err != nil {
+		return
+	}
+
+	fmt.Print(response.String())
 }

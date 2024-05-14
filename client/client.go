@@ -94,7 +94,7 @@ func (c *Client) doRequest(ctx context.Context, method string, url *url.URL, bod
 		)
 	}
 
-	if err = c.options.decoderFactory(response.Body)(&result); err != nil {
+	if err = c.options.decoderFactory(response.Body)(result); err != nil {
 		return fmt.Errorf("doRequest: response body decode err: %w", err)
 	}
 

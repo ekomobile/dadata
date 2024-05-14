@@ -3,11 +3,15 @@
 package dadata
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"net/url"
 	"os"
 	"testing"
 
+	"github.com/ekomobile/dadata/v2/client"
+	"github.com/ekomobile/dadata/v2/client/transport/encoder"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/ekomobile/dadata/v2/api/suggest"
@@ -51,6 +55,27 @@ func (s *ApiSuggestIntegrationTest) TestAddress() {
 	res, err := api.Address(context.Background(), &params)
 	s.NoError(err)
 	s.NotEmpty(res)
+}
+
+func (s *ApiSuggestIntegrationTest) TestAddress_low_level() {
+	var err error
+	endpointUrl, err := url.Parse(EndpointURLSuggest)
+	if err != nil {
+		return
+	}
+
+	cli := client.NewClient(endpointUrl,
+		client.WithEncoderFactory(encoder.RawEncoderFactory()),
+		client.WithDecoderFactory(encoder.RawDecoderFactory()),
+	)
+
+	request := bytes.NewBufferString("{ \"query\": \"москва хабар\" }")
+	response := &bytes.Buffer{}
+
+	err = cli.Post(context.Background(), "suggest/address", request, response)
+
+	s.NoError(err)
+	s.NotEmpty(response.String())
 }
 
 func (s *ApiSuggestIntegrationTest) TestAddressWithLanguageParamRU() {

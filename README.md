@@ -75,6 +75,31 @@ httpClient := &http.Client{}
 api := NewSuggestApi(WithHttpClient(httpClient))
 ```
 
+### Low level client usage
+
+Pass and consume raw bytes/strings:
+
+```go
+    endpointUrl, err := url.Parse("https://suggestions.dadata.ru/suggestions/api/4_1/rs/")
+    if err != nil {
+        return
+    }
+
+    cli := client.NewClient(endpointUrl,
+        client.WithEncoderFactory(encoder.RawEncoderFactory()),
+        client.WithDecoderFactory(encoder.RawDecoderFactory()),     
+    )
+
+    request := bytes.NewBufferString("{ \"query\": \"москва хабар\" }")
+    response := &bytes.Buffer{}
+
+    err = cli.Post(context.Background(), "suggest/address", request, response)
+    if err != nil {
+        return
+    }
+
+    fmt.Print(response.String()) // Output: `{"suggestions":[{"value":"г Москва, ул Хабаровская",...`
+```
 
 ## Licence
 MIT see [LICENSE](LICENSE)

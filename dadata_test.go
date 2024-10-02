@@ -197,6 +197,58 @@ func (s *ApiSuggestIntegrationTest) TestPartyByIdWithBranchType() {
 	s.Equal(query, res[0].Data.Inn)
 }
 
+func (s *ApiSuggestIntegrationTest) TestPartyByIdWithStatusActive() {
+	api := NewSuggestApi()
+
+	query := "7707083893"
+
+	params := suggest.NewPartyByIDParams(query).
+		SetBranchType(suggest.PartyBranchTypeMain).
+		SetType(suggest.PartyTypeLegal).
+		SetStatus(suggest.PartyStatusActive)
+
+	res, err := api.PartyByID(context.Background(), params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Equal(query, res[0].Data.Inn)
+	s.Equal(string(suggest.PartyStatusActive), res[0].Data.State.Status)
+}
+
+func (s *ApiSuggestIntegrationTest) TestPartyByIdWithStatusLiquidatedAndActive() {
+	api := NewSuggestApi()
+
+	query := "7707083893"
+
+	params := suggest.NewPartyByIDParams(query).
+		SetBranchType(suggest.PartyBranchTypeMain).
+		SetType(suggest.PartyTypeLegal).
+		SetStatus(suggest.PartyStatusLiquidated, suggest.PartyStatusActive)
+
+	res, err := api.PartyByID(context.Background(), params)
+
+	s.NoError(err)
+	s.NotEmpty(res)
+	s.Equal(query, res[0].Data.Inn)
+	s.Equal(string(suggest.PartyStatusActive), res[0].Data.State.Status)
+}
+
+func (s *ApiSuggestIntegrationTest) TestPartyByIdWithStatusLiquidatedNegative() {
+	api := NewSuggestApi()
+
+	query := "7707083893"
+
+	params := suggest.NewPartyByIDParams(query).
+		SetBranchType(suggest.PartyBranchTypeMain).
+		SetType(suggest.PartyTypeLegal).
+		SetStatus(suggest.PartyStatusLiquidated)
+
+	res, err := api.PartyByID(context.Background(), params)
+
+	s.NoError(err)
+	s.Len(res, 0)
+}
+
 func (s *ApiSuggestIntegrationTest) TestCountry() {
 	api := NewSuggestApi()
 	params := suggest.RequestParams{

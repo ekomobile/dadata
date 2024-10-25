@@ -11,10 +11,12 @@ type (
 		KPP        *string          `json:"kpp,omitempty"`
 		Type       *PartyType       `json:"type,omitempty"`
 		BranchType *PartyBranchType `json:"branch_type,omitempty"`
+		Status     []PartyStatus    `json:"status,omitempty"`
 	}
 
 	PartyType       string
 	PartyBranchType string
+	PartyStatus     string
 )
 
 const (
@@ -23,6 +25,10 @@ const (
 
 	PartyBranchTypeMain   PartyBranchType = "MAIN"
 	PartyBranchTypeBranch PartyBranchType = "BRANCH"
+
+	PartyStatusActive      PartyStatus = "ACTIVE"
+	PartyStatusLiquidating PartyStatus = "LIQUIDATING"
+	PartyStatusLiquidated  PartyStatus = "LIQUIDATED"
 )
 
 func NewPartyByIDParams(query string) *PartyByIDParams {
@@ -56,7 +62,13 @@ func (o *PartyByIDParams) SetBranchType(t PartyBranchType) *PartyByIDParams {
 	return o
 }
 
+func (o *PartyByIDParams) SetStatus(s ...PartyStatus) *PartyByIDParams {
+	o.Status = s
+	return o
+}
+
 // Party try to return suggest parties by params
+// https://dadata.ru/api/suggest/party/
 func (a *Api) Party(ctx context.Context, params *RequestParams) (ret []*PartySuggestion, err error) {
 	var result = &PartyResponse{}
 

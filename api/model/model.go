@@ -126,6 +126,7 @@ type (
 		CityDistrictType     string `json:"city_district_type"`      // Тип района города (сокращенный)
 		CityDistrictTypeFull string `json:"city_district_type_full"` // Тип района города
 		CityDistrict         string `json:"city_district"`           // Район города
+		GeonameId            string `json:"geoname_id"`              // Код города
 		SettlementFiasID     string `json:"settlement_fias_id"`      // Код ФИАС нас. пункта
 		SettlementKladrID    string `json:"settlement_kladr_id"`     // Код КЛАДР нас. пункта
 		SettlementWithType   string `json:"settlement_with_type"`    // Населенный пункт с типом

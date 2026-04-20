@@ -34,7 +34,8 @@ const (
 	QCGeoStreet                  // Улица
 	QCGeoLocality                // Населенный пункт
 	QCGeoCity                    // Город
-	QCGeoNotDetermined           // Координаты не определены
+	QCGeoNotDetermined           // Координаты не определены, отсутствуют в справочнике
+	QCGeoNotLoaded               // Не загружен справочник с геокоординатами
 )
 
 // Проверьте, указал ли клиент телефон, соответствующий его адресу, с помощью кода qc_conflict (удобно для проверки уровня риска):
@@ -120,6 +121,12 @@ type (
 		AreaType             string `json:"area_type"`               // Тип района в регионе (сокращенный)
 		AreaTypeFull         string `json:"area_type_full"`          // Тип района в регионе
 		Area                 string `json:"area"`                    // Район в регионе
+		SubAreaFiasID        string `json:"sub_area_fias_id"`        // Код ФИАС муниципального поселения (22.3+)
+		SubAreaKladrID       string `json:"sub_area_kladr_id"`       // Код КЛАДР муниципального поселения (22.3+)
+		SubAreaWithType      string `json:"sub_area_with_type"`      // Муниципальное поселение с типом (22.3+)
+		SubAreaType          string `json:"sub_area_type"`           // Тип муниципального поселения (сокращенный) (22.3+)
+		SubAreaTypeFull      string `json:"sub_area_type_full"`      // Тип муниципального поселения (22.3+)
+		SubArea              string `json:"sub_area"`                // Муниципальное поселение (22.3+)
 		CityFiasID           string `json:"city_fias_id"`            // Код ФИАС города
 		CityKladrID          string `json:"city_kladr_id"`           // Код КЛАДР города
 		CityWithType         string `json:"city_with_type"`          // Город с типом
@@ -146,8 +153,14 @@ type (
 		StreetType           string `json:"street_type"`             // Тип улицы (сокращенный)
 		StreetTypeFull       string `json:"street_type_full"`        // Тип улицы
 		Street               string `json:"street"`                  // Улица
+		SteadFiasID          string `json:"stead_fias_id"`           // Код ФИАС участка (21.12+)
+		SteadCadNum          string `json:"stead_cadnum"`            // Кадастровый номер участка (22.4+)
+		SteadType            string `json:"stead_type"`              // Тип участка (сокращенный) (21.12+)
+		SteadTypeFull        string `json:"stead_type_full"`         // Тип участка (21.12+)
+		Stead                string `json:"stead"`                   // Участок (21.12+)
 		HouseFiasID          string `json:"house_fias_id"`           // Код ФИАС дома
 		HouseKladrID         string `json:"house_kladr_id"`          // Код КЛАДР дома
+		HouseFlatCount       string `json:"house_flat_count"`        // Количество квартир в доме (24.3+)
 		HouseType            string `json:"house_type"`              // Тип дома (сокращенный)
 		HouseTypeFull        string `json:"house_type_full"`         // Тип дома
 		House                string `json:"house"`                   // Дом
@@ -165,6 +178,11 @@ type (
 		FlatCadNum           string `json:"flat_cadnum"`             // Кадастровый номер квартиры (22.4+). Заполняется в зависимости от тарифа «Дадаты».
 		SquareMeterPrice     string `json:"square_meter_price"`      // Рыночная стоимость м²
 		FlatPrice            string `json:"flat_price"`              // Рыночная стоимость квартиры
+		RoomFiasID           string `json:"room_fias_id"`            // ФИАС-код комнаты (22.8+)
+		RoomCadNum           string `json:"room_cadnum"`             // Кадастровый номер комнаты (22.8+)
+		RoomType             string `json:"room_type"`               // Тип комнаты (сокращенный) (22.8+)
+		RoomTypeFull         string `json:"room_type_full"`          // Тип комнаты (22.8+)
+		Room                 string `json:"room"`                    // Комната (22.8+)
 		PostalBox            string `json:"postal_box"`              // Абонентский ящик
 		FiasID               string `json:"fias_id"`                 // Код ФИАС
 		FiasCode             string `json:"fias_code"`               // Иерархический код адреса в ФИАС (СС+РРР+ГГГ+ППП+СССС+УУУУ+ДДДД)
@@ -186,7 +204,9 @@ type (
 		QualityCodeCompleteRaw interface{} `json:"qc_complete"`    // Код полноты
 		QualityCodeHouseRaw    interface{} `json:"qc_house"`       // Код проверки дома
 		QualityCodeRaw         interface{} `json:"qc"`             // Код качества
-		UnparsedParts          string      `json:"unparsed_parts"` // Нераспознанная часть адреса. Для адреса
+		UnparsedParts          string      `json:"unparsed_parts"`   // Нераспознанная часть адреса. Для адреса
+		HistoryValues          []string    `json:"history_values"`   // Список исторических названий объекта нижнего уровня
+		Divisions              interface{} `json:"divisions"`        // Поля адреса в адм. и мун. делениях (22.3+)
 		Metro                  []*Metro    `json:"metro"`
 	}
 

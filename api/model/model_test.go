@@ -42,6 +42,51 @@ func TestParty(t *testing.T) {
 	assert.Equal(t, FounderShareTypePercent, model.Founders[0].Share.Type)
 }
 
+func TestAddress(t *testing.T) {
+	dataReader, err := os.Open("test/address.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer dataReader.Close()
+
+	model := Address{}
+
+	err = json.NewDecoder(dataReader).Decode(&model)
+	assert.NoError(t, err)
+	assert.Equal(t, "Москва, ул. Ленина, 1", model.Source)
+
+	// sub_area fields (22.3+)
+	assert.Equal(t, "sub-fias-id", model.SubAreaFiasID)
+	assert.Equal(t, "sub-kladr-id", model.SubAreaKladrID)
+	assert.Equal(t, "Одинцовское с/пос", model.SubAreaWithType)
+	assert.Equal(t, "с/пос", model.SubAreaType)
+	assert.Equal(t, "сельское поселение", model.SubAreaTypeFull)
+	assert.Equal(t, "Одинцовское", model.SubArea)
+
+	// stead fields (21.12+)
+	assert.Equal(t, "stead-fias-id", model.SteadFiasID)
+	assert.Equal(t, "50:20:0010101:123", model.SteadCadNum)
+	assert.Equal(t, "уч", model.SteadType)
+	assert.Equal(t, "участок", model.SteadTypeFull)
+	assert.Equal(t, "5", model.Stead)
+
+	// house_flat_count (24.3+)
+	assert.Equal(t, "120", model.HouseFlatCount)
+
+	// room fields (22.8+)
+	assert.Equal(t, "room-fias-id", model.RoomFiasID)
+	assert.Equal(t, "50:20:0010101:789", model.RoomCadNum)
+	assert.Equal(t, "ком", model.RoomType)
+	assert.Equal(t, "комната", model.RoomTypeFull)
+	assert.Equal(t, "2", model.Room)
+
+	// history_values
+	assert.Equal(t, []string{"ул Сталина", "ул Советская"}, model.HistoryValues)
+
+	// geoname_id
+	assert.Equal(t, "524901", model.GeoNameId)
+}
+
 func TestPhone1(t *testing.T) {
 	dataReader, err := os.Open("test/phone1.json")
 	if err != nil {
